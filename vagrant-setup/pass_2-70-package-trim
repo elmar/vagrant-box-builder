@@ -1,0 +1,16 @@
+#!/bin/sh
+
+BASEDIR=$(dirname $0)
+
+aptitude -y remove   $(cat ${BASEDIR}/packages-to-remove)
+aptitude -y markauto $(cat ${BASEDIR}/packages-to-markauto)
+
+aptitude -y remove '?installed ?name(linux-headers)'
+
+# make sure all aptitude action (e.g. auto remove) are executed
+aptitude -y install
+
+# no need to keep configurations for removed packages
+aptitude -y purge '?config-files'
+apt-get clean
+dpkg --clear-avail

@@ -1,0 +1,11 @@
+#!/bin/sh
+
+BASEDIR=$(dirname $0)
+
+apt-get -y remove aptitude
+apt-get -y autoremove
+
+dpkg --get-selections | awk '$2=="deinstall" {print $1}' | xargs -r dpkg -P
+
+apt-get clean
+dpkg --clear-avail

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# remove non-virtual kernel
+aptitude -y remove '?installed ?name(linux-image) ?not(?name(virtual))'

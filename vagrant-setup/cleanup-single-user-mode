@@ -1,0 +1,21 @@
+#!/bin/sh
+
+dpkg-reconfigure locales
+rm -rf /root/.aptitude
+rm -rf /root/.cache
+rm -f  /root/.bash_history
+rm -rf /root/vagrant-setup*
+
+rm -rf /var/log/*
+
+passwd << EOT
+vagrant
+vagrant
+EOT
+
+passwd vagrant << EOT
+vagrant
+vagrant
+EOT
+
+rm $0

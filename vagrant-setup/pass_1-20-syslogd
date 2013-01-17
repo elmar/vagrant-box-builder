@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# replace rsyslog with busybox-syslogd
+aptitude -y install busybox-syslogd+ busybox+ busybox-static- rsyslog-
+rm -f /var/log/{kern.log,auth.log,syslog}

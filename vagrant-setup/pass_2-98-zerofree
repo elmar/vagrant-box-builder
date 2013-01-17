@@ -1,0 +1,8 @@
+#!/bin/sh
+
+BASEDIR=$(dirname $0)
+
+apt-get -y install zerofree
+
+apt-get clean
+dpkg --clear-avail

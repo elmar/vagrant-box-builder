@@ -1,0 +1,10 @@
+#!/bin/sh
+
+cat > /etc/sudoers.d/vagrant << 'EOF'
+Defaults env_keep += "SSH_AUTH_SOCK"
+%admin ALL=(ALL) NOPASSWD: ALL
+EOF
+chmod ug=r,o= /etc/sudoers.d/vagrant
+
+addgroup --system admin
+adduser vagrant admin
