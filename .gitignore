@@ -4,3 +4,5 @@
 .DS_Store
 
 /vagrant-setup.tar.gz
+/vagrant-preseeds/debian.cfg
+/vagrant-preseeds/ubuntu.cfg

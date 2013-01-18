@@ -1,0 +1,5 @@
+#
+# Ubuntu specific settings
+d-i mirror/http/hostname        string ubuntu.ethz.ch
+d-i mirror/http/directory       string /ubuntu
+d-i base-installer/kernel/image select linux-virtual
