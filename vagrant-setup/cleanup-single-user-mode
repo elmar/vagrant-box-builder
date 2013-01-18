@@ -1,6 +1,5 @@
 #!/bin/sh
 
-dpkg-reconfigure locales
 rm -rf /root/.aptitude
 rm -rf /root/.cache
 rm -f  /root/.bash_history
