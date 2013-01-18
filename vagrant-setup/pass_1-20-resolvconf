@@ -1,7 +1,7 @@
 #!/bin/sh
 
 DEBIAN_FRONTEND=noninteractive
-DEBIAN_PRIORITY=low
+DEBIAN_PRIORITY=critical
 export DEBIAN_FRONTEND DEBIAN_PRIORITY
 
 aptitude -y remove \
