@@ -17,7 +17,7 @@ This box is only 130 MB in size at the time of writing and contains only the cor
 
 If you disagree with our choice of software be aware that the true value of a project like this one are the tools in the form of scripts that you can use to build your own.  The example box mentioned above is more than anything else a showcase to hint at what is possible and to spur your initiative.  If you are just starting with Vagrant it is better that you use one of their boxes.  That way all their explanations work as intended.  Once you know your way around you are invited to come back here and customize your boxes to your heart's content.
 
-See the [HOWTO](blob/master/HOWTO.mdown) for some step-by-step instructions.
+See the [HOWTO](vagrant-box-builder/blob/master/HOWTO.mdown) for some step-by-step instructions.
 
 DRAFT ALERT: If you stumble accross this repository in the early stages be aware that not all necessary parts may be available yet.  They exist as files in our network setup and were used to build the box mentioned above.  All relevant files shall be added here in a form usable by other projects.  The first draft of this README was written to indicate the coarse goal of this project.
 
