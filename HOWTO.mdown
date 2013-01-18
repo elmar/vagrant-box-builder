@@ -13,7 +13,9 @@ infrastructure available.  For more information see the documentation for
 [SYSLINUX](http://www.syslinux.org/wiki/index.php/PXELINUX) or
 [iPXE](http://ipxe.org/).
 
-Copy the preseed file (e.g. vagrant-preseeds/precise.cfg) to a web server that
+Prepare the preseed file in ``vagrant-preseeds``.  The Debian and Ubuntu specific settings have been factored out so that you can generate the files by running ``make`` in the ``vagrant-preseeds`` directory.
+
+Copy the preseed file (e.g. vagrant-preseeds/ubuntu.cfg) to a web server that
 is accessible from the VirtualBox that you will be using to build the Vagrant
 box.  In the copy on the web server edit the MD5 passwords for the root and
 vagrant users to something that you know but others cannot guess.  Since we are
