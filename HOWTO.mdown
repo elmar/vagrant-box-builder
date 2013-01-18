@@ -57,31 +57,36 @@ those [proposed by the Vagrant
 project](http://docs.vagrantup.com/v1/docs/base_boxes.html#creating_base_boxes):
 
 * the amount of RAM does *not* affect the size of the final box the way we set
-    it up.  It will become the default memory size of your vagrant box but can be
-    configured in the Vagrantfile at any time.  We choose it to be 1024 MB.
+  it up.  It will become the default memory size of your vagrant box but can be
+  configured in the Vagrantfile at any time.  We choose it to be 1024 MB.
 
 * a dynamically resizing drive of 40 GB seems reasonable.  This will also not
-    affect the size of the vagrant box.  It will, however, be the upper limit for
-    the size it can grow to.  This is a hard limit for the guest system and a
-    protection against filling up the host more than roughly this amount.  We
-    choose to give this disk a name of ``sda``
+  affect the size of the vagrant box.  It will, however, be the upper limit for
+  the size it can grow to.  This is a hard limit for the guest system and a
+  protection against filling up the host more than roughly this amount.  We
+  choose to give this disk a name of ``sda``
 
 * disabling USB and audio is a good idea.  You should also uncheck ``Enable
-    absolute pointing device`` in the ``System`` / ``Motherboard`` section as it
-    depends on USB
+  absolute pointing device`` in the ``System`` / ``Motherboard`` section as it
+  depends on USB
 
 * for PXE boot we need a bridged mode network connection.  We will later change
-    it to NAT mode as mentioned below.  In the advanced section of the network
-    settings we choose ``PCnet-FAST III`` as the adapter type.  It supports
-    network boot.
+  it to NAT mode as mentioned below.  In the advanced section of the network
+  settings we choose ``PCnet-FAST III`` as the adapter type.  It supports
+  network boot.
 
 * it may be convenient to enable network boot as the first of the boot options.
-    Alternatively you can use the ``F12`` key to choose netboot temporarily.
+  Alternatively you can use the ``F12`` key to choose netboot temporarily.
 
 Booting into the Virtual Machine
 --------------------------------
 
-You can now boot into the newly created virtual guest.  Choose ``F12`` and ``l`` for network boot unless you made it the default.  Your PXE setup should kick in.  With the preseed settings the whole installation should not ask you any questions.  With us this step takes about 10 minutes and ends with a reboot.  After the virtual guest comes up again you can log in as root with the password chosen above.  Immediately shut down the virtual machine with
+You can now boot into the newly created virtual guest.  Choose ``F12`` and
+``l`` for network boot unless you made it the default.  Your PXE setup should
+kick in.  With the preseed settings the whole installation should not ask you
+any questions.  With us this step takes about 10 minutes and ends with a
+reboot.  After the virtual guest comes up again you can log in as root with the
+password chosen above.  Immediately shut down the virtual machine with
 
     halt -p
 
@@ -91,18 +96,21 @@ if you enabled it before.
 Box Setup
 ---------
 
-Start the virtual machine again and log in as root.  Run the following sequence of commands:
+Start the virtual machine again and log in as root.  Run the following sequence
+of commands:
 
     tar xzf vagrant-setup.tar.gz
     vagrant-setup/run-pass 1
     reboot
 
-The machine will reboot.  Log in as root again when it comes up.  Continue with:
+The machine will reboot.  Log in as root again when it comes up.  Continue
+with:
 
     vagrant-setup/run-pass 2
     telinit 1
 
-This will change into single user mode.  You need to provide the root password again
+This will change into single user mode.  You need to provide the root password
+again
 
     ./cleanup-single-user-mode
     mount -t ext4 -o remount,ro /dev/sda1 /
@@ -112,7 +120,10 @@ This will change into single user mode.  You need to provide the root password a
 Create the Box
 --------------
 
-Before we package the box we want to compactify the virtual disk that we zeroed out in the last step.  You need to find out where your VirtualBox installation keeps the virtual machines and the corresponding disks.  If you named your disk ``sda`` above you may be able to find it with the command
+Before we package the box we want to compactify the virtual disk that we zeroed
+out in the last step.  You need to find out where your VirtualBox installation
+keeps the virtual machines and the corresponding disks.  If you named your disk
+``sda`` above you may be able to find it with the command
 
     locate sda.vdi
 
@@ -122,19 +133,48 @@ Compactify the disk with
 
 This should shrink the disk considerably.
 
-Change into the directory where you want to store the Vagrant box and tell Vagrant to create the box
+Change into the directory where you want to store the Vagrant box and tell
+Vagrant to create the box
 
     cd /place/for/vagrant/boxes
     vagrant package --base vagrant
 
-The paramter given after the ``--base`` option is the name of the virtual machine.
+The paramter given after the ``--base`` option is the name of the virtual
+machine.
 
 This will create a file ``package.box`` which you may want to rename
 
     mv package.box precise64-core.box
 
+Testing the New Box
+-------------------
+
 You can add it as a base box to your vagrant setup.
 
     vagrant add precise64-core precise64-core.box
+
+To test it do something like:
+
+    mkdir testbox
+    cd testbox
+    vagrant init precise64-core
+    vagrant up
+    vagrant ssh
+
+The above may issue a warning about a version mismatch for the VirtualBox guest
+additions.  Other than that there should be only informational text and no
+errors.  At the end you should be logged in as the vagrant user.
+
+A few things to test inside the box
+
+    sudo -i
+    df /vagrant
+    ls /vagrant
+    apt-get update
+    apt-get dist-upgrade
+
+``sudo -i`` gives you an interactive root shell.  ``/vagrant`` should be a
+mount point and contain the ``Vagrantfile``.  ``apt-get`` should not produce
+any errors and there should be no remaining upgrades left.
 
 If you arrived here you have a new base box.

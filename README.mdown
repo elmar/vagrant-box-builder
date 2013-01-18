@@ -7,9 +7,9 @@ a single ``vagrant`` command to manage virtual machines run by
 headless mode.  The administration is done connecting via ssh to a command
 line.  Vagrant operates by using base boxes that provide a starting point for
 further specialization.  Hence, vagrant boxes are often used to test out
-applications and their deployments.  They are also useful as controlled
-environments that can be set up quickly to test out and discuss about a
-project.  It is also a great educational tool.
+applications and their deployments.  They are useful as controlled environments
+that can be set up quickly to test out and discuss about a project.  It is also
+a great educational tool.
 
 [Building Vagrant base
 boxes](http://docs.vagrantup.com/v1/docs/base_boxes.html) is not trivial.  If
@@ -18,9 +18,10 @@ get enough feedback to analyse the problem easily.  The Vagrant project
 therefore recommends you [use one of their
 boxes](http://docs.vagrantup.com/v1/docs/boxes.html) as the start.
 
-Building ones own boxes has the advantage to be able to customize them to your
-exact needs.  You can choose a distribution and release that you want and you
-can make it very compact by only including the software that you need.
+Building your own boxes has the advantage to be able to customize them to your
+exact needs.  You can choose a distribution and a specific release that you
+want and you can make it very compact by only including the software that you
+need.
 
 To make building Vagrant boxes practical we chose to automate most of the
 steps.  This allows us to build the boxes reliably and to fix problems we
@@ -43,9 +44,11 @@ If you disagree with our choice of software be aware that the true value of a
 project like this one are the tools in the form of scripts that you can use to
 build your own.  The example box mentioned above is more than anything else a
 showcase to hint at what is possible and to spur your initiative.  If you are
-just starting with Vagrant is is better that you use one of their boxes.  That
+just starting with Vagrant it is better that you use one of their boxes.  That
 way all their explanations work as intended.  Once you know your way around you
 are invited to come back here and customize your boxes to your heart's content.
+
+See the [HOWTO](HOWTO.mdown) for some step-by-step instructions.
 
 DRAFT ALERT: If you stumble accross this repository in the early stages be
 aware that not all necessary parts may be available yet.  They exist as files
