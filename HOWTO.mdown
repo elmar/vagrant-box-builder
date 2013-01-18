@@ -1,118 +1,69 @@
 A Short Guide to Build Your Own Vagrant Box
 ===========================================
 
-Many but not all steps needed to build your own Vagrant box are automated.
-Here is a rundown of the things you have to do manually.
+Many but not all steps needed to build your own Vagrant box are automated.  Here is a rundown of the things you have to do manually.
 
 PXE Boot
 --------
 
-We use preseeding and the easiest way to do this is via PXE boot.  Setting up
-PXE is beyond the scope of this document.  We assume you have your PXE
-infrastructure available.  For more information see the documentation for
-[SYSLINUX](http://www.syslinux.org/wiki/index.php/PXELINUX) or
-[iPXE](http://ipxe.org/).
+We use preseeding and the easiest way to do this is via PXE boot.  Setting up PXE is beyond the scope of this document.  We assume you have your PXE infrastructure available.  For more information see the documentation for [SYSLINUX](http://www.syslinux.org/wiki/index.php/PXELINUX) or [iPXE](http://ipxe.org/).
 
 Prepare the preseed file in ``vagrant-preseeds``.  The Debian and Ubuntu specific settings have been factored out so that you can generate the files by running ``make`` in the ``vagrant-preseeds`` directory.
 
-Copy the preseed file (e.g. vagrant-preseeds/ubuntu.cfg) to a web server that
-is accessible from the VirtualBox that you will be using to build the Vagrant
-box.  In the copy on the web server edit the MD5 passwords for the root and
-vagrant users to something that you know but others cannot guess.  Since we are
-booting via PXE the box will be accessible from the internet for a while.  If
-you work in an intranet behind a firewall you may get away with a weak
-password.  Even then it does not hurt to follow best practices.
+Copy the preseed file (e.g. vagrant-preseeds/ubuntu.cfg) to a web server that is accessible from the VirtualBox that you will be using to build the Vagrant box.  In the copy on the web server edit the MD5 passwords for the root and vagrant users to something that you know but others cannot guess.  Since we are booting via PXE the box will be accessible from the internet for a while.  If you work in an intranet behind a firewall you may get away with a weak password.  Even then it does not hurt to follow best practices.
 
-In your PXE configuration prepare a stanza which points to your preseeding URL.
-The details will depend on your particular PXE setup.  It will go something
-along the lines of
+In your PXE configuration prepare a stanza which points to your preseeding URL.  The details will depend on your particular PXE setup.  It will go something along the lines of
 
     kernel linux
     append initrd=initrd.gz auto=true priority=critical keyboard-configuration/layoutcode=us url=http://myrepo.example.org/d-i/vagrant-preseeds/precise.cfg
 
-Be aware that you can find the installation kernel and initrd files on a mirror
-close to you.  E.g.,
-http://ubuntu.ethz.ch/ubuntu/dists/precise/main/installer-amd64/current/images/netboot/ubuntu-installer/amd64/.
-This choice determines the release and distribution of your Vagrant box.
+Be aware that you can find the installation kernel and initrd files on a mirror close to you.  E.g., http://ubuntu.ethz.ch/ubuntu/dists/precise/main/installer-amd64/current/images/netboot/ubuntu-installer/amd64/.  This choice determines the release and distribution of your Vagrant box.
 
-While the root password is the only setting in the preseed file that you
-absolutely need to change you may want to adjust a couple more.
+While the root password is the only setting in the preseed file that you absolutely need to change you may want to adjust a couple more.
 
-The ``mirror/http/hostname`` should point to an Ubuntu (or Debian as the case
-may be) mirror close to you.  Our repositories http://debian.ethz.ch/ and
-http://ubuntu.ethz.ch/ are accessible from the internet and will work for you
-but they may not provide the optimal download bandwidth depending on the
-network topology between your site and ours.  The ``mirror/http/directory`` and
-``mirror/http/proxy`` may need to be adjusted accordingly.
+The ``mirror/http/hostname`` should point to an Ubuntu (or Debian as the case may be) mirror close to you.  Our repositories http://debian.ethz.ch/ and http://ubuntu.ethz.ch/ are accessible from the internet and will work for you but they may not provide the optimal download bandwidth depending on the network topology between your site and ours.  The ``mirror/http/directory`` and ``mirror/http/proxy`` may need to be adjusted accordingly.
 
-The next setting to adjust is the ``preseed/late_command``.  Create a
-``vagrant-setup.tar.gz`` file from the ``vagrant-setup`` directory possibly
-containig your customization.  If you leave this setting alone you will get our
-current collection of scripts which may just work.  YMMV.
+The next setting to adjust is the ``preseed/late_command``.  Create a ``vagrant-setup.tar.gz`` file from the ``vagrant-setup`` directory possibly containig your customization.  If you leave this setting alone you will get our current collection of scripts which may just work.  YMMV.
 
 VirtualBox Manager
 ------------------
 
-Using VirtualBox Manager create a new virtual guest machine.  Give it a
-reasonable name like ``vagrant``.  We use slightly different settings than
-those [proposed by the Vagrant
-project](http://docs.vagrantup.com/v1/docs/base_boxes.html#creating_base_boxes):
+Using VirtualBox Manager create a new virtual guest machine.  Give it a reasonable name like ``vagrant``.  We use slightly different settings than those [proposed by the Vagrant project](http://docs.vagrantup.com/v1/docs/base_boxes.html#creating_base_boxes):
 
-* the amount of RAM does *not* affect the size of the final box the way we set
-  it up.  It will become the default memory size of your vagrant box but can be
-  configured in the Vagrantfile at any time.  We choose it to be 1024 MB.
+* the amount of RAM does *not* affect the size of the final box the way we set it up.  It will become the default memory size of your vagrant box but can be configured in the Vagrantfile at any time.  We choose it to be 1024 MB.
 
-* a dynamically resizing drive of 40 GB seems reasonable.  This will also not
-  affect the size of the vagrant box.  It will, however, be the upper limit for
-  the size it can grow to.  This is a hard limit for the guest system and a
-  protection against filling up the host more than roughly this amount.  We
-  choose to give this disk a name of ``sda``
+* a dynamically resizing drive of 40 GB seems reasonable.  This will also not affect the size of the vagrant box.  It will, however, be the upper limit for the size it can grow to.  This is a hard limit for the guest system and a protection against filling up the host more than roughly this amount.  We choose to give this disk a name of ``sda``
 
-* disabling USB and audio is a good idea.  You should also uncheck ``Enable
-  absolute pointing device`` in the ``System`` / ``Motherboard`` section as it
-  depends on USB
+* disabling USB and audio is a good idea.  You should also uncheck ``Enable absolute pointing device`` in the ``System`` / ``Motherboard`` section as it depends on USB
 
-* for PXE boot we need a bridged mode network connection.  We will later change
-  it to NAT mode as mentioned below.  In the advanced section of the network
-  settings we choose ``PCnet-FAST III`` as the adapter type.  It supports
-  network boot.
+* for PXE boot we need a bridged mode network connection.  We will later change it to NAT mode as mentioned below.  In the advanced section of the network settings we choose ``PCnet-FAST III`` as the adapter type.  It supports network boot.
 
-* it may be convenient to enable network boot as the first of the boot options.
-  Alternatively you can use the ``F12`` key to choose netboot temporarily.
+* it may be convenient to enable network boot as the first of the boot options.  Alternatively you can use the ``F12`` key to choose netboot temporarily.
 
 Booting into the Virtual Machine
 --------------------------------
 
-You can now boot into the newly created virtual guest.  Choose ``F12`` and
-``l`` for network boot unless you made it the default.  Your PXE setup should
-kick in.  With the preseed settings the whole installation should not ask you
-any questions.  With us this step takes about 10 minutes and ends with a
-reboot.  After the virtual guest comes up again you can log in as root with the
-password chosen above.  Immediately shut down the virtual machine with
+You can now boot into the newly created virtual guest.  Choose ``F12`` and ``l`` for network boot unless you made it the default.  Your PXE setup should kick in.  With the preseed settings the whole installation should not ask you any questions.  With us this step takes about 10 minutes and ends with a reboot.  After the virtual guest comes up again you can log in as root with the password chosen above.  Immediately shut down the virtual machine with
 
     halt -p
 
-When the machine has powered down set the network to NAT.  Disable network boot
-if you enabled it before.
+When the machine has powered down set the network to NAT.  Disable network boot if you enabled it before.
 
 Box Setup
 ---------
 
-Start the virtual machine again and log in as root.  Run the following sequence
-of commands:
+Start the virtual machine again and log in as root.  Run the following sequence of commands:
 
     tar xzf vagrant-setup.tar.gz
     vagrant-setup/run-pass 1
     reboot
 
-The machine will reboot.  Log in as root again when it comes up.  Continue
-with:
+The machine will reboot.  Log in as root again when it comes up.  Continue with:
 
     vagrant-setup/run-pass 2
     telinit 1
 
-This will change into single user mode.  You need to provide the root password
-again
+This will change into single user mode.  You need to provide the root password again
 
     ./cleanup-single-user-mode
     mount -t ext4 -o remount,ro /dev/sda1 /
@@ -122,10 +73,7 @@ again
 Create the Box
 --------------
 
-Before we package the box we want to compactify the virtual disk that we zeroed
-out in the last step.  You need to find out where your VirtualBox installation
-keeps the virtual machines and the corresponding disks.  If you named your disk
-``sda`` above you may be able to find it with the command
+Before we package the box we want to compactify the virtual disk that we zeroed out in the last step.  You need to find out where your VirtualBox installation keeps the virtual machines and the corresponding disks.  If you named your disk ``sda`` above you may be able to find it with the command
 
     locate sda.vdi
 
@@ -135,14 +83,12 @@ Compactify the disk with
 
 This should shrink the disk considerably.
 
-Change into the directory where you want to store the Vagrant box and tell
-Vagrant to create the box
+Change into the directory where you want to store the Vagrant box and tell Vagrant to create the box
 
     cd /place/for/vagrant/boxes
     vagrant package --base vagrant
 
-The paramter given after the ``--base`` option is the name of the virtual
-machine.
+The paramter given after the ``--base`` option is the name of the virtual machine.
 
 This will create a file ``package.box`` which you may want to rename
 
@@ -163,9 +109,7 @@ To test it do something like:
     vagrant up
     vagrant ssh
 
-The above may issue a warning about a version mismatch for the VirtualBox guest
-additions.  Other than that there should be only informational text and no
-errors.  At the end you should be logged in as the vagrant user.
+The above may issue a warning about a version mismatch for the VirtualBox guest additions.  Other than that there should be only informational text and no errors.  At the end you should be logged in as the vagrant user.
 
 A few things to test inside the box
 
@@ -175,8 +119,6 @@ A few things to test inside the box
     apt-get update
     apt-get dist-upgrade
 
-``sudo -i`` gives you an interactive root shell.  ``/vagrant`` should be a
-mount point and contain the ``Vagrantfile``.  ``apt-get`` should not produce
-any errors and there should be no remaining upgrades left.
+``sudo -i`` gives you an interactive root shell.  ``/vagrant`` should be a mount point and contain the ``Vagrantfile``.  ``apt-get`` should not produce any errors and there should be no remaining upgrades left.
 
 If you arrived here you have a new base box.

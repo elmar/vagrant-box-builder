@@ -1,73 +1,31 @@
 Vagrant Box Builder
 ===================
 
-[Vagrant](http://www.vagrantup.com) is a set set of tools neatly packed up into
-a single ``vagrant`` command to manage virtual machines run by
-[VirtualBox](https://www.virtualbox.org/).  Those vagrant boxes are run in
-headless mode.  The administration is done connecting via ssh to a command
-line.  Vagrant operates by using base boxes that provide a starting point for
-further specialization.  Hence, vagrant boxes are often used to test out
-applications and their deployments.  They are useful as controlled environments
-that can be set up quickly to test out and discuss about a project.  It is also
-a great educational tool.
+[Vagrant](http://www.vagrantup.com) is a set set of tools neatly packed up into a single ``vagrant`` command to manage virtual machines run by [VirtualBox](https://www.virtualbox.org/).  Those vagrant boxes are run in headless mode.  The administration is done connecting via ssh to a command line.  Vagrant operates by using base boxes that provide a starting point for further specialization.  Hence, vagrant boxes are often used to test out applications and their deployments.  They are useful as controlled environments that can be set up quickly to test out and discuss about a project.  It is also a great educational tool.
 
-[Building Vagrant base
-boxes](http://docs.vagrantup.com/v1/docs/base_boxes.html) is not trivial.  If
-you get them wrong they might not work, but worse, in headless mode you may not
-get enough feedback to analyse the problem easily.  The Vagrant project
-therefore recommends you [use one of their
-boxes](http://docs.vagrantup.com/v1/docs/boxes.html) as the start.
+[Building Vagrant base boxes](http://docs.vagrantup.com/v1/docs/base_boxes.html) is not trivial.  If you get them wrong they might not work, but worse, in headless mode you may not get enough feedback to analyse the problem easily.  The Vagrant project therefore recommends you [use one of their boxes](http://docs.vagrantup.com/v1/docs/boxes.html) as the start.
 
-Building your own boxes has the advantage to be able to customize them to your
-exact needs.  You can choose a distribution and a specific release that you
-want and you can make it very compact by only including the software that you
-need.
+Building your own boxes has the advantage to be able to customize them to your exact needs.  You can choose a distribution and a specific release that you want and you can make it very compact by only including the software that you need.
 
-To make building Vagrant boxes practical we chose to automate most of the
-steps.  This allows us to build the boxes reliably and to fix problems we
-encounter along the way once and for all.  This repository serves as a
-collection of the tools we need for the automation.
+To make building Vagrant boxes practical we chose to automate most of the steps.  This allows us to build the boxes reliably and to fix problems we encounter along the way once and for all.  This repository serves as a collection of the tools we need for the automation.
 
 If you are in a hurry and you just want to see what is possible you can check out one of our base boxes:
 
   vagrant box add precise64-core http://www.phys.ethz.ch/~isg/vagrant/precise64-core.box
 
-This box is only 130 MB in size at the time of writing and contains only the
-core components necessary for a Ubuntu 12.04 LTS (precise) installation.  Be
-aware that this box lacks puppet and chef.  It can therefore serve as a basis
-for projects that do not rely on those packages.  You can also use it to
-install exactly the version of puppet and chef that you want (Ubuntu package
-vs. [RVM](https://rvm.io/) vs. [rbenv](https://github.com/sstephenson/rbenv)).
-[Customizing an existing box](http://docs.vagrantup.com/v1/docs/boxes.html#creating_a_box) is much easier than starting from scratch.
+This box is only 130 MB in size at the time of writing and contains only the core components necessary for a Ubuntu 12.04 LTS (precise) installation.  Be aware that this box lacks puppet and chef.  It can therefore serve as a basis for projects that do not rely on those packages.  You can also use it to install exactly the version of puppet and chef that you want (Ubuntu package vs. [RVM](https://rvm.io/) vs. [rbenv](https://github.com/sstephenson/rbenv)).  [Customizing an existing box](http://docs.vagrantup.com/v1/docs/boxes.html#creating_a_box) is much easier than starting from scratch.
 
-If you disagree with our choice of software be aware that the true value of a
-project like this one are the tools in the form of scripts that you can use to
-build your own.  The example box mentioned above is more than anything else a
-showcase to hint at what is possible and to spur your initiative.  If you are
-just starting with Vagrant it is better that you use one of their boxes.  That
-way all their explanations work as intended.  Once you know your way around you
-are invited to come back here and customize your boxes to your heart's content.
+If you disagree with our choice of software be aware that the true value of a project like this one are the tools in the form of scripts that you can use to build your own.  The example box mentioned above is more than anything else a showcase to hint at what is possible and to spur your initiative.  If you are just starting with Vagrant it is better that you use one of their boxes.  That way all their explanations work as intended.  Once you know your way around you are invited to come back here and customize your boxes to your heart's content.
 
-See the [HOWTO](HOWTO.mdown) for some step-by-step instructions.
+See the [HOWTO](blob/master/HOWTO.mdown) for some step-by-step instructions.
 
-DRAFT ALERT: If you stumble accross this repository in the early stages be
-aware that not all necessary parts may be available yet.  They exist as files
-in our network setup and were used to build the box mentioned above.  All
-relevant files shall be added here in a form usable by other projects.  The
-first draft of this README was written to indicate the coarse goal of this
-project.
+DRAFT ALERT: If you stumble accross this repository in the early stages be aware that not all necessary parts may be available yet.  They exist as files in our network setup and were used to build the box mentioned above.  All relevant files shall be added here in a form usable by other projects.  The first draft of this README was written to indicate the coarse goal of this project.
 
 Contributions
 -------------
 
-This project started out as [one person](https://github.com/elmar)'s itch that
-got scratched.  I expect and hope that the project gets forked on GitHub.  Once
-other ideas get merged back into the project the "we" in this text starts to
-refer to a community.
+This project started out as [one person](https://github.com/elmar)'s itch that got scratched.  I expect and hope that the project gets forked on GitHub.  Once other ideas get merged back into the project the "we" in this text starts to refer to a community.
 
-Building Vagrant boxes just invites diversity.  It is very likely that not all
-forks can and should be merged back into the originial repository.  I invite
-you therefore not only to fork the project but to look at existing forks once
-they start appearing.  You may find a gem or two.
+Building Vagrant boxes just invites diversity.  It is very likely that not all forks can and should be merged back into the originial repository.  I invite you therefore not only to fork the project but to look at existing forks once they start appearing.  You may find a gem or two.
 
 Yours, -- Elmar Heeb
