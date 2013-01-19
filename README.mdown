@@ -1,7 +1,7 @@
 Vagrant Box Builder
 ===================
 
-[Vagrant](http://www.vagrantup.com) is a set set of tools neatly packed up into a single ``vagrant`` command to manage virtual machines run by [VirtualBox](https://www.virtualbox.org/).  Those vagrant boxes are run in headless mode.  The administration is done connecting via ssh to a command line.  Vagrant operates by using base boxes that provide a starting point for further specialization.  Hence, vagrant boxes are often used to test out applications and their deployments.  They are useful as controlled environments that can be set up quickly to test out and discuss about a project.  It is also a great educational tool.
+[Vagrant](http://www.vagrantup.com) is a set of tools neatly packed up into a single ``vagrant`` command to manage virtual machines run by [VirtualBox](https://www.virtualbox.org/).  Those vagrant boxes are run in headless mode.  The administration is done connecting via ssh to a command line.  Vagrant operates by using base boxes that provide a starting point for further specialization.  Hence, vagrant boxes are often used to test out applications and their deployments.  They are useful as controlled environments that can be set up quickly to test out and discuss about a project.  It is also a great educational tool.
 
 [Building Vagrant base boxes](http://docs.vagrantup.com/v1/docs/base_boxes.html) is not trivial.  If you get them wrong they might not work, but worse, in headless mode you may not get enough feedback to analyse the problem easily.  The Vagrant project therefore recommends you [use one of their boxes](http://docs.vagrantup.com/v1/docs/boxes.html) as the start.
 
