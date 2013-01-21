@@ -6,6 +6,8 @@ rm -f  /root/.bash_history
 rm -rf /root/vagrant-setup*
 
 rm -rf /var/log/*
+(cd /var/log ; touch lastlog wtmp ; chown root:utmp lastlog wtmp ; chmod 664 lastlog wtmp)
+
 
 passwd << EOT
 vagrant
