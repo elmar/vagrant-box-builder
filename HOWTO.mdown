@@ -81,7 +81,7 @@ Compactify the disk with
 
     VBoxManage modifyhd /path/to/vagrant/sda.vdi --compact
 
-This should shrink the disk considerably.
+This should shrink the disk considerably.  This step is not really necessary.  By using zerofree above the partition would be compressed just as well by the ``vagrant package`` command below.
 
 Change into the directory where you want to store the Vagrant box and tell Vagrant to create the box
 
