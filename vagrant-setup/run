@@ -1,0 +1,19 @@
+#!/bin/sh
+
+cd $(dirname $0)
+BASEDIR=$(pwd)
+SCRIPTDIR=${BASEDIR}/scripts
+
+SCRIPT=${SCRIPTDIR}/$1
+shift
+if [ ! -x "${SCRIPT}" ]; then
+    echo "no such script or not executable: ${SCRIPT}"
+    exit 1
+fi
+
+DEBIAN_FRONTEND=noninteractive
+DEBIAN_PRIORITY=critical
+
+export BASEDIR DEBIAN_FRONTEND DEBIAN_PRIORITY
+
+exec "${SCRIPT}" "$@"

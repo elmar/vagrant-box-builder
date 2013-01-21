@@ -1,0 +1,6 @@
+vbox-install-new
+set-permissions
+package-trim
+remove-aptitude
+zerofree
+prepare-cleanup

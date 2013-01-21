@@ -2,13 +2,14 @@
 
 BASEDIR=$(dirname $0)
 PASS=${1}
+PASSLIST=${BASEDIR}/pass-${PASS}.list
 
-if [ ${PASS} != '1' -a ${PASS} != '2' ]; then
-    echo 'please specify pass 1 or 2'
+if [ ! -f ${PASSLIST} ]; then
+    echo "no list for pass ${PASS}"
     exit 1
 fi
 
-for script in ${BASEDIR}/pass_${PASS}-* ; do
+for script in $(cat ${PASSLIST}) ; do
     echo ----- ${script} -----
-    ${script}
+    ${BASEDIR}/run ${script}
 done

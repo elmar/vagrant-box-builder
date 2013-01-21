@@ -1,6 +1,5 @@
 #!/bin/sh
 
-BASEDIR=$(dirname $0)
 VBOX_ADDITIONS=${BASEDIR}/VBoxLinuxAdditions.run
 
 aptitude -y install wget

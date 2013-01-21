@@ -1,8 +1,5 @@
 #!/bin/sh
 
-cd $(dirname $0)
-BASEDIR=$(pwd -P)
-
 aptitude -y install lsb-release
 HOSTNAME=vagrant-$(lsb_release -is | tr A-Z a-z)-$(lsb_release -cs)
 aptitude -y markauto lsb-release

@@ -1,9 +1,5 @@
 #!/bin/sh
 
-DEBIAN_FRONTEND=noninteractive
-DEBIAN_PRIORITY=critical
-export DEBIAN_FRONTEND DEBIAN_PRIORITY
-
 aptitude -y remove \
     -o DPkg::Options::=--force-confdef \
     -o DPkg::Options::=--force-confold \

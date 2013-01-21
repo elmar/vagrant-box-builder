@@ -1,7 +1,5 @@
 #!/bin/sh
 
-BASEDIR=$(dirname $0)
-
 apt-get -y remove aptitude
 apt-get -y autoremove
 

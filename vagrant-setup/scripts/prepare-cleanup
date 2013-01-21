@@ -1,5 +1,3 @@
 #!/bin/sh
 
-BASEDIR=$(dirname $0)
-
 mv ${BASEDIR}/cleanup-single-user-mode /root/.
