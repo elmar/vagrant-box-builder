@@ -1,3 +1,3 @@
 #!/bin/sh
 
-mv ${BASEDIR}/cleanup-single-user-mode /root/.
+mv "${BASEDIR}/cleanup-in-single-user-mode" /root/.

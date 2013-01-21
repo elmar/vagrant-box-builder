@@ -65,7 +65,7 @@ The machine will reboot.  Log in as root again when it comes up.  Continue with:
 
 This will change into single user mode.  You need to provide the root password again
 
-    ./cleanup-single-user-mode
+    ./cleanup-in-single-user-mode
     mount -t ext4 -o remount,ro /dev/sda1 /
     zerofree -v /dev/sda1
     halt -p
