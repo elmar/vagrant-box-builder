@@ -1,6 +1,6 @@
 vbox-install-new
 set-permissions
-localepurge
+sshd-config
 package-trim
 remove-aptitude
 zerofree
