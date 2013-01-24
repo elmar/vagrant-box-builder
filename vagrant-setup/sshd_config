@@ -1,0 +1,12 @@
+# see sshd_config(5) for documentation
+#
+# rudimentary configuration for a Vagrant box
+
+Protocol 2
+ChallengeResponseAuthentication no
+X11Forwarding no
+PrintMotd no
+#AcceptEnv LANG LC_*
+Subsystem sftp /usr/lib/openssh/sftp-server
+UsePAM yes
+UseDNS no

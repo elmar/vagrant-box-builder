@@ -1,0 +1,5 @@
+#!/bin/sh
+
+cp ${BASEDIR}/sshd_config /etc/ssh/.
+chown root:root /etc/ssh/sshd_config
+chmod u=rw,go=r /etc/ssh/sshd_config
