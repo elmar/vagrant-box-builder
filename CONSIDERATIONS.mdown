@@ -1,0 +1,57 @@
+Considerations Regarding Core Vagrant Boxes
+===========================================
+
+Some thoughts went into the particluar choices of how to set up core boxes for Vagrant.  Your needs may be different.  These hints may help you taylor the scripts to your needs.
+
+RAM and Swap
+------------
+
+We choose to disable swap entirely.  Linux runs perfectly well withouth swap.  If you need more memory you just configure more and let the host system deal with paging to disk.  VirtualBox is reasonably good at managing memory as a process on the host system.
+
+Incidentially, this leads to a considerably more compact box size.  After a while of use swap space usually contains rather random bits that do not compress very well.  The box may also expose more of its history via the contents of a swap partition than may be wise.
+
+The preseed settings contain a partman receipe with one big primary partition and no swap.
+
+Syslog
+------
+
+Using ``rsyslog`` is reasonable for a real desktop or server but wasteful for a VirtualBox guest.  Busybox provides a more frugal ``syslogd`` daemon.  It keeps a circular buffer in RAM for the most recent syslog messages.  You can read the syslog messages with ``logread``.
+
+resolvconf
+----------
+
+Ubuntu installs the resolvconf utility by default.  It is useful for mobile equipment where ``/etc/resolv.con`` must be updated often.  This is not needed for a VirtualBox guest.  DHCP handles ``/etc/resolv.conf`` quite well.
+
+Grub and Booting
+----------------
+
+The Vagrant box will boot silently behind the scenes.  It is therefore irrelevant to have a nice splash screen or a grub menu during boot.  We set the grub timeout to zero so as not to delay booting unnecessarily.  We also switch off the spash screen and graphical booting.  In Ubuntu we need to keep the ``plymouth`` package but at least we can use a text rather than a graphical version.
+
+VirtualBox Guest Additions
+--------------------------
+
+We choose to deinstall the guest additions from the Debian/Ubuntu distribution and install the most recent upstream version.  The version of the guest additions needs not only install in the guest box but be compatible with the host version of VirtualBox.  A newer version is more likely to work in various combinations.
+
+For convenience we prepare the installation script on the same web server where we keep the vagrant-setup.tar.gz file with the scripts.  You can find the original at http://www.virtualbox.org/.
+
+Package Trim
+------------
+
+The choice of packages is certainly a matter of preference.  For a core box the decisions are relatively simple.  Whatever is not needed for the most basic system administration can be removed.  Starting from the core box you can then add whatever a particular project needs or whatever the personal preferences suggest.
+
+As an example we get rid of all editors.  If you use vagrant to develop and test automated deployments you may need puppet/chef, git, capistrano, or any other deployment tool but not an editor.  If you find yourself in need of an editor that would indicate that the deployment strategy needs improvement.  If on the other hand you use Vagrant interactively as a throwaway playground you should install only exactly the editor that you prefer and not a plethora of commonly used editors.
+
+Locales and localepurge
+-----------------------
+
+Depending on various factors it might pay off to install and use the ``localepurge`` package.  Our choice of packages and the removal of all locales that are packaged separately means that ``localepurge`` will not buy us much so we leave it out.
+
+SSH Configuration
+-----------------
+
+Since we have at most a very limited set of locales and no X11 applications we choose not to support ``X11Forwarding`` and have no need to ``AcceptEnv`` the ``LANG`` and ``LC_*`` environment variables.  For other scenarios adjust as needed.
+
+Aptitude
+--------
+
+While ``aptitude`` is a great choice of package manager for Debian and Ubuntu it is not needed for a core box.  To work its magic ``aptitude`` needs — among others — the Xapian library which consumes considerable space.  All that is needed for package management can be done with the classic ``apt-get``.
