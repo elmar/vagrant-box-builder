@@ -50,7 +50,6 @@ laptop-detect
 less
 libsasl2-modules
 linux-firmware
-locales
 logrotate
 lshw
 lsof
