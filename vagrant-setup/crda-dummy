@@ -1,0 +1,13 @@
+Section: misc
+Priority: optional
+Standards-Version: 3.9.3
+
+Package: crda-dummy
+Maintainer: Elmar S. Heeb <elmar@heebs.ch>
+Provides: wireless-crda
+Conflicts: crda
+Description: dummy package to replace crda
+ Satisfies a dependency on crda which is meant to provide the infrastructure
+ for wireless clients.  Use it in a case where wireless is not an issue.  A
+ typical case may be a virtual guest machine where the host provides network
+ connectivity

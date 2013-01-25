@@ -52,11 +52,22 @@ When the machine has powered down set the network to NAT.  Disable network boot 
 Box Setup
 ---------
 
+//Tweak//: Depending on the release (e.g., for Ubuntu precise) the kernel may depend on some wireless support packages.  For a virtual machine this is superfluous as the host system provides the network connectivity.  You can trick the system by providing an empty dummy package (an equivs) to serve as a stand in.
+
 Start the virtual machine again and log in as root.  Run the following sequence of commands:
 
     tar xzf vagrant-setup.tar.gz
     vagrant-setup/run-pass 1
     reboot
+
+> //Tweak//: Depending on the release (e.g., for Ubuntu precise) the kernel may depend on some wireless support packages.  For a virtual machine this is superfluous as the host system provides the network connectivity.  You can trick the system by providing an empty dummy package (an equivs) to serve as a stand in.
+>
+>     # optional:
+>     dpkg -r --force-depends crda
+>     dpkg -i vagrant-setup/crda-dummy_1.0_all.deb
+>     aptitude purge crda
+>
+> You can do this before the reboot.
 
 The machine will reboot.  Log in as root again when it comes up.  Continue with:
 
