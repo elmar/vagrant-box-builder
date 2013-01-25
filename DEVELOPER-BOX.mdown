@@ -1,0 +1,18 @@
+Creating a Developer Box
+========================
+
+If all you want is a box where you can create Debian/Ubuntu packages you do not necessarily need Ruby and puppet/chef.  You can start from one of the core boxes and install a few packages with their dependencies
+
+    vagrant init squeeze64-core
+    vagrant up
+    vagrant ssh -- -l root
+    apt-get install devscripts autotools-dev quilt
+    apt-get clean
+    dpkg --clear-avail
+
+Zero out the partition (for better compression) and package the box.
+
+    killall dhclient
+    mount -t ext4 -o remount,ro /dev/sda1 /
+    zerofree -v /dev/sda1
+    halt -p
