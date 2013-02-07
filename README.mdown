@@ -19,13 +19,13 @@ If you disagree with our choice of software be aware that the true value of a pr
 
 See the [HOWTO](vagrant-box-builder/blob/master/HOWTO.mdown) for some step-by-step instructions.
 
-DRAFT ALERT: If you stumble accross this repository in the early stages be aware that not all necessary parts may be available yet.  They exist as files in our network setup and were used to build the box mentioned above.  All relevant files shall be added here in a form usable by other projects.  The first draft of this README was written to indicate the coarse goal of this project.
+Contributions and Similar Projects
+----------------------------------
 
-Contributions
--------------
+This project started out as [one person](https://github.com/elmar)'s itch that got scratched.  The main focus is to build boxes with a minimal footprint and reproducibility of builds.  End-to-end automation is a secondary concern.
 
-This project started out as [one person](https://github.com/elmar)'s itch that got scratched.  I expect and hope that the project gets forked on GitHub.  Once other ideas get merged back into the project the "we" in this text starts to refer to a community.
+There must be quite a number of people who build their own boxes but few seem to publish their experiences.  There are however some projects and on github you will see a few forks there.  You should definitely check out [VeeWee](https://github.com/jedi4ever/veewee).  They support complete automation and have templates for a large number of configurations.
 
-Building Vagrant boxes just invites diversity.  It is very likely that not all forks can and should be merged back into the originial repository.  I invite you therefore not only to fork the project but to look at existing forks once they start appearing.  You may find a gem or two.
+Building Vagrant boxes just invites diversity.  Look around and feel free to fork the project.
 
 Yours, -- Elmar Heeb
