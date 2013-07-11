@@ -17,7 +17,7 @@ This box is only 130 MB in size at the time of writing and contains only the cor
 
 If you disagree with our choice of software be aware that the true value of a project like this one are the tools in the form of scripts that you can use to build your own.  The example box mentioned above is more than anything else a showcase to hint at what is possible and to spur your initiative.  If you are just starting with Vagrant it is better that you use one of their boxes.  That way all their explanations work as intended.  Once you know your way around you are invited to come back here and customize your boxes to your heart's content.
 
-See the [HOWTO](vagrant-box-builder/blob/master/HOWTO.mdown) for some step-by-step instructions.
+See the [HOWTO](HOWTO.mdown) for some step-by-step instructions.
 
 Contributions and Similar Projects
 ----------------------------------
