@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# the remaining scripts need aptitude
+apt-get -y install aptitude
