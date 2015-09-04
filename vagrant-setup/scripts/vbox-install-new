@@ -3,7 +3,7 @@
 VBOX_ADDITIONS=${BASEDIR}/VBoxLinuxAdditions.run
 
 aptitude -y install wget
-wget -O ${VBOX_ADDITIONS} 'http://ubuntu.ethz.ch/d-i/VBoxLinuxAdditions.run'
+wget -O ${VBOX_ADDITIONS} 'http://debian.heebs.ch/d-i/VBoxLinuxAdditions.run'
 chmod +x ${VBOX_ADDITIONS}
 aptitude -y purge wget
 
